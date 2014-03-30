@@ -5,13 +5,6 @@ var pkg = require('./package.json');
 var getUsername = require('./index');
 var input = process.argv[2];
 
-function stdin(cb) {
-	var ret = '';
-	process.stdin.setEncoding('utf8');
-	process.stdin.on('data', function (data) { ret += data });
-	process.stdin.on('end', function () { cb(ret) }).resume();
-}
-
 function help() {
 	console.log(pkg.description);
 	console.log('');
