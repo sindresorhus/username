@@ -32,7 +32,8 @@
     "login",
     "name",
     "logname",
-    "lname"
+    "lname",
+    "whoami"
   ],
   "devDependencies": {
     "mocha": "*"
