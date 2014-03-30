@@ -1,0 +1,40 @@
+{
+  "name": "username",
+  "version": "0.0.0",
+  "description": "Get the username of the current user",
+  "license": "MIT",
+  "repository": "sindresorhus/username",
+  "bin": {
+    "username": "cli.js"
+  },
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "http://sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha test.js && mocha test-fallback.js"
+  },
+  "files": [
+    "cli.js",
+    "index.js",
+    "sync.js"
+  ],
+  "keywords": [
+    "cli",
+    "bin",
+    "app",
+    "username",
+    "user",
+    "login",
+    "name",
+    "logname",
+    "lname"
+  ],
+  "devDependencies": {
+    "mocha": "*"
+  }
+}
