@@ -59,6 +59,11 @@ Usage
 ```
 
 
+## Related
+
+- [fullname](https://github.com/sindresorhus/fullname) - Get the fullname of the current user
+
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
