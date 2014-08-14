@@ -5,7 +5,7 @@
 
 ## Install
 
-```bash
+```sh
 $ npm install --save username
 ```
 
@@ -42,20 +42,15 @@ Falls back to `id -un` on OS X / Linux and `whoami` on Windows in the rare case 
 
 ## CLI
 
-You can also use it as a CLI app by installing it globally:
-
-```bash
+```sh
 $ npm install --global username
 ```
 
-#### Usage
-
-```bash
+```sh
 $ username --help
 
-Usage
-  $ username
-  sindresorhus
+  Usage
+    username
 ```
 
 
@@ -66,4 +61,4 @@ Usage
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com)
