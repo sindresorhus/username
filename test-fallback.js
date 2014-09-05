@@ -7,7 +7,7 @@ it('should get the username from fallback', function (cb) {
 	process.env.LNAME = '';
 	process.env.USERNAME = '';
 
-	var username = require('./index');
+	var username = require('./');
 
 	username(function (err, username) {
 		assert(username.length > 1);
