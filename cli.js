@@ -6,8 +6,8 @@ var username = require('./');
 meow({
 	help: [
 		'Usage',
-		'  username'
-	].join('\n')
+		'  $ username'
+	]
 });
 
 username(function (err, username) {

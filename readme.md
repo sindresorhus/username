@@ -5,7 +5,7 @@
 
 ## Install
 
-```sh
+```
 $ npm install --save username
 ```
 
@@ -42,15 +42,15 @@ Falls back to `id -un` on OS X / Linux and `whoami` on Windows in the rare case 
 
 ## CLI
 
-```sh
+```
 $ npm install --global username
 ```
 
-```sh
+```
 $ username --help
 
   Usage
-    username
+    $ username
 ```
 
 
