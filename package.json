@@ -35,7 +35,7 @@
     "whoami"
   ],
   "dependencies": {
-    "meow": "^3.3.0"
+    "meow": "^3.4.0"
   },
   "devDependencies": {
     "mocha": "*"

@@ -17,13 +17,13 @@ var username = require('username');
 
 username(function (err, username) {
 	console.log(username);
-	//=> sindresorhus
+	//=> 'sindresorhus'
 });
 
 // or
 
 username.sync();
-//=> sindresorhus
+//=> 'sindresorhus'
 ```
 
 
@@ -31,13 +31,13 @@ username.sync();
 
 Tries to get the username from the `LOGNAME` `USER` `LNAME` `USERNAME` environment variables. The result is cached.
 
-### `username(callback)`
+### username(callback)
 
 Falls back to `id -un` on OS X / Linux and `whoami` on Windows in the rare case none of the environment variables are set.
 
-##### `callback(err, username)`
+##### callback(error, username)
 
-### `username.sync()`
+### username.sync()
 
 
 ## CLI
@@ -49,8 +49,9 @@ $ npm install --global username
 ```
 $ username --help
 
-  Usage
+  Example
     $ username
+    sindresorhus
 ```
 
 

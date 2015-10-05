@@ -3,12 +3,11 @@
 var meow = require('meow');
 var username = require('./');
 
-meow({
-	help: [
-		'Usage',
-		'  $ username'
-	]
-});
+meow([
+	'Example',
+	'  $ username',
+	'  sindresorhus'
+]);
 
 username(function (err, username) {
 	console.log(username);
