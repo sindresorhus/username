@@ -1,45 +1,48 @@
 'use strict';
-var exec = require('child_process').exec;
-var username;
-var env = process.env;
-var first = true;
+const childProcess = require('child_process');
+const execa = require('execa');
+const mem = require('mem');
 
-module.exports = function (cb) {
-	if (!first) {
-		return cb(null, username);
-	}
+function getEnvVar() {
+	const env = process.env;
+	return env.LOGNAME || env.USER || env.LNAME || env.USERNAME;
+}
 
-	first = false;
+function cleanWinCmd(x) {
+	return x.replace(/^.*\\/, '');
+}
 
-	username = env.LOGNAME || env.USER || env.LNAME || env.USERNAME;
+function noop() {}
 
-	if (username) {
-		return cb(null, username);
+module.exports = mem(() => {
+	const envVar = getEnvVar();
+
+	if (envVar) {
+		return Promise.resolve(envVar);
 	}
 
 	if (process.platform === 'darwin' || process.platform === 'linux') {
-		exec('id -un', function (err, stdout) {
-			if (err) {
-				return cb();
-			}
-
-			username = stdout.trim();
-
-			cb(null, username);
-		});
+		return execa('id', ['-un']).then(x => x.stdout).catch(noop);
 	} else if (process.platform === 'win32') {
-		exec('whoami', function (err, stdout) {
-			if (err) {
-				return cb();
-			}
-
-			username = stdout.trim().replace(/^.*\\/, '');
-
-			cb(null, username);
-		});
-	} else {
-		cb();
+		return execa('whoami').then(x => cleanWinCmd(x.stdout)).catch(noop);
 	}
-};
 
-module.exports.sync = require('./sync');
+	return Promise.resolve();
+});
+
+module.exports.sync = mem(() => {
+	const envVar = getEnvVar();
+
+	if (envVar) {
+		return envVar;
+	}
+
+	try {
+		if (process.platform === 'darwin' || process.platform === 'linux') {
+			// TODO: use `execa` when it gets support for sync methods
+			return childProcess.execFileSync('id', ['-un'], {encoding: 'utf8'});
+		} else if (process.platform === 'win32') {
+			return cleanWinCmd(childProcess.execFileSync('whoami', {encoding: 'utf8'}));
+		}
+	} catch (err) {}
+});

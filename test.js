@@ -1,22 +1,11 @@
-/* eslint-env mocha */
-'use strict';
-var assert = require('assert');
+import test from 'ava';
 
-it('username() - should get the username of the current user', function (cb) {
-	var username = require('./');
-
+test.serial('username()', async t => {
 	process.env.LOGNAME = 'unicorn';
-
-	username(function (err, username) {
-		assert.equal(username, 'unicorn');
-		cb();
-	});
+	t.is(await require('./')(), 'unicorn');
 });
 
-it('username.sync() - should get the username of the current user', function () {
-	var username = require('./').sync;
-
+test.serial('username.sync()', async t => {
 	process.env.LOGNAME = 'unicorn2';
-
-	assert.strictEqual(username(), 'unicorn2');
+	t.is(await require('./').sync(), 'unicorn2');
 });

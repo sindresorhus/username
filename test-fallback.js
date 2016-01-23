@@ -1,17 +1,14 @@
-/* eslint-env mocha */
-'use strict';
-var assert = require('assert');
+import test from 'ava';
 
-it('should get the username from fallback', function (cb) {
-	process.env.LOGNAME = '';
-	process.env.USER = '';
-	process.env.LNAME = '';
-	process.env.USERNAME = '';
+process.env.LOGNAME = '';
+process.env.USER = '';
+process.env.LNAME = '';
+process.env.USERNAME = '';
 
-	var username = require('./');
+test('async', async t => {
+	t.true((await require('./')()).length > 1);
+});
 
-	username(function (err, username) {
-		assert(username.length > 1);
-		cb();
-	});
+test('sync', t => {
+	t.true(require('./').sync().length > 1);
 });

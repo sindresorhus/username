@@ -9,36 +9,38 @@
     "email": "sindresorhus@gmail.com",
     "url": "sindresorhus.com"
   },
-  "bin": "cli.js",
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "xo && mocha test.js && mocha test-fallback.js"
+    "test": "xo && ava"
   },
   "files": [
-    "cli.js",
-    "index.js",
-    "sync.js"
+    "index.js"
   ],
   "keywords": [
-    "cli-app",
-    "cli",
-    "bin",
-    "app",
     "username",
     "user",
     "login",
     "name",
     "logname",
     "lname",
-    "whoami"
+    "whoami",
+    "shell",
+    "env",
+    "var",
+    "environment",
+    "variable"
   ],
-  "dependencies": {
-    "meow": "^3.4.0"
-  },
   "devDependencies": {
-    "mocha": "*",
+    "ava": "*",
     "xo": "*"
+  },
+  "dependencies": {
+    "execa": "^0.2.2",
+    "mem": "^0.1.0"
+  },
+  "xo": {
+    "esnext": true
   }
 }

@@ -13,50 +13,31 @@ $ npm install --save username
 ## Usage
 
 ```js
-var username = require('username');
+const username = require('username');
 
-username(function (err, username) {
+username().then(username => {
 	console.log(username);
 	//=> 'sindresorhus'
 });
-
-// or
-
-username.sync();
-//=> 'sindresorhus'
 ```
 
 
 ## API
 
-Tries to get the username from the `LOGNAME` `USER` `LNAME` `USERNAME` environment variables. The result is cached.
+First tries to get the username from the `LOGNAME` `USER` `LNAME` `USERNAME` environment variables. Then falls back to `$ id -un` on OS X / Linux and `$ whoami` on Windows, in the rare case none of the environment variables are set. The result is cached.
 
-### username(callback)
+### username()
 
-Falls back to `id -un` on OS X / Linux and `whoami` on Windows in the rare case none of the environment variables are set.
-
-##### callback(error, username)
+Returns a promise for the username.
 
 ### username.sync()
 
-
-## CLI
-
-```
-$ npm install --global username
-```
-
-```
-$ username --help
-
-  Example
-    $ username
-    sindresorhus
-```
+Returns the username.
 
 
 ## Related
 
+- [username-cli](https://github.com/sindresorhus/username-cli) - CLI for this module
 - [fullname](https://github.com/sindresorhus/fullname) - Get the fullname of the current user
 
 
