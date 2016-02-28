@@ -3,9 +3,9 @@ const childProcess = require('child_process');
 const execa = require('execa');
 const mem = require('mem');
 
-function getEnvVar() {
+function getEnvVar(options) {
 	const env = process.env;
-	return env.LOGNAME || env.USER || env.LNAME || env.USERNAME;
+	return (options && options.sudo && env.SUDO_USER) || env.LOGNAME || env.USER || env.LNAME || env.USERNAME;
 }
 
 function cleanWinCmd(x) {
@@ -14,8 +14,8 @@ function cleanWinCmd(x) {
 
 function noop() {}
 
-module.exports = mem(() => {
-	const envVar = getEnvVar();
+module.exports = mem(options => {
+	const envVar = getEnvVar(options);
 
 	if (envVar) {
 		return Promise.resolve(envVar);
@@ -30,8 +30,8 @@ module.exports = mem(() => {
 	return Promise.resolve();
 });
 
-module.exports.sync = mem(() => {
-	const envVar = getEnvVar();
+module.exports.sync = mem(options => {
+	const envVar = getEnvVar(options);
 
 	if (envVar) {
 		return envVar;
