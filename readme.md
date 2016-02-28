@@ -21,10 +21,11 @@ username().then(username => {
 });
 ```
 
-
 ## API
 
 First tries to get the username from the `LOGNAME` `USER` `LNAME` `USERNAME` environment variables. Then falls back to `$ id -un` on OS X / Linux and `$ whoami` on Windows, in the rare case none of the environment variables are set. The result is cached.
+
+Pass `{sudo: true}` to get `$SUDO_USER`. If your program is run with `sudo` and you set this option, you'll get the non-root username.
 
 ### username()
 
