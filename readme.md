@@ -24,7 +24,7 @@ username().then(username => {
 
 ## API
 
-First tries to get the username from the `LOGNAME` `USER` `LNAME` `USERNAME` environment variables. Then falls back to `$ id -un` on OS X / Linux and `$ whoami` on Windows, in the rare case none of the environment variables are set. The result is cached.
+First tries to get the username from the `SUDO_USER` LOGNAME` `USER` `LNAME` `USERNAME` environment variables. Then falls back to `$ id -un` on OS X / Linux and `$ whoami` on Windows, in the rare case none of the environment variables are set. The result is cached.
 
 ### username()
 
