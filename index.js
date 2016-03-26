@@ -17,7 +17,7 @@ var settings = {
         DARWIN: 'darwin',
         LINUX: 'linux',
         WINDOW: 'win32',
-        COMMAD: 'whoami',
+        COMMAND: 'whoami',
         ECODING: {
             UTF8: 'utf8'
         }
@@ -37,7 +37,7 @@ module.exports = mem(() => {
     if (process.platform === settings.platform.DARWIN || process.platform === settings.platform.LINUX) {
         return execa('id', ['-un']).then(x => x.stdout).catch(noop);
     } else if (process.platform === settings.platform.WINDOW) {
-        return execa(settings.platform.COMMAD).then(x => cleanWinCmd(x.stdout)).catch(noop);
+        return execa(settings.platform.COMMAND).then(x => cleanWinCmd(x.stdout)).catch(noop);
     }
 
     return Promise.resolve();
@@ -55,7 +55,7 @@ module.exports.sync = mem(() => {
             // TODO: use `execa` when it gets support for sync methods
             return childProcess.execFileSync('id', ['-un'], { encoding: settings.platform.ECODING.UTF8 });
         } else if (process.platform === settings.platform.WINDOW) {
-            return cleanWinCmd(childProcess.execFileSync(settings.platform.COMMAD, { encoding: settings.platform.ECODING.UTF8 }));
+            return cleanWinCmd(childProcess.execFileSync(settings.platform.COMMAND, { encoding: settings.platform.ECODING.UTF8 }));
         }
     } catch (err) { }
 });
