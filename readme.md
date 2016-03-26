@@ -15,10 +15,16 @@ $ npm install --save username
 ```js
 const username = require('username');
 
+//example 1.
 username().then(username => {
 	console.log(username);
 	//=> 'sindresorhus'
 });
+
+//example 2.
+var yourUsername = username.sync()
+console.log(yourUsername)
+//=> 'sindresorhus'
 ```
 
 
