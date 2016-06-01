@@ -5,7 +5,13 @@ const mem = require('mem');
 
 function getEnvVar() {
 	const env = process.env;
-	return env.SUDO_USER || env.LOGNAME || env.USER || env.LNAME || env.USERNAME;
+
+	return env.SUDO_USER ||
+		env.C9_USER /* Cloud9 */ ||
+		env.LOGNAME ||
+		env.USER ||
+		env.LNAME ||
+		env.USERNAME;
 }
 
 function cleanWinCmd(x) {
