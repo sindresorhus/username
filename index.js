@@ -1,5 +1,4 @@
 'use strict';
-const childProcess = require('child_process');
 const execa = require('execa');
 const mem = require('mem');
 
@@ -45,10 +44,9 @@ module.exports.sync = mem(() => {
 
 	try {
 		if (process.platform === 'darwin' || process.platform === 'linux') {
-			// TODO: use `execa` when it gets support for sync methods
-			return childProcess.execFileSync('id', ['-un'], {encoding: 'utf8'});
+			return execa.sync('id', ['-un']).stdout;
 		} else if (process.platform === 'win32') {
-			return cleanWinCmd(childProcess.execFileSync('whoami', {encoding: 'utf8'}));
+			return cleanWinCmd(execa.sync('whoami').stdout);
 		}
 	} catch (err) {}
 });

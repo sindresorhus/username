@@ -32,13 +32,13 @@
     "environment",
     "variable"
   ],
+  "dependencies": {
+    "execa": "^0.4.0",
+    "mem": "^0.1.0"
+  },
   "devDependencies": {
     "ava": "*",
     "xo": "*"
-  },
-  "dependencies": {
-    "execa": "^0.2.2",
-    "mem": "^0.1.0"
   },
   "xo": {
     "esnext": true
