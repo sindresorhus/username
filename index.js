@@ -1,4 +1,5 @@
 'use strict';
+const os = require('os');
 const execa = require('execa');
 const mem = require('mem');
 
@@ -20,6 +21,10 @@ function cleanWinCmd(x) {
 function noop() {}
 
 module.exports = mem(() => {
+	if (os.userInfo) {
+		return Promise.resolve(os.userInfo().username);
+	}
+
 	const envVar = getEnvVar();
 
 	if (envVar) {
@@ -36,6 +41,10 @@ module.exports = mem(() => {
 });
 
 module.exports.sync = mem(() => {
+	if (os.userInfo) {
+		return os.userInfo().username;
+	}
+
 	const envVar = getEnvVar();
 
 	if (envVar) {
