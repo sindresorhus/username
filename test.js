@@ -5,7 +5,7 @@ test.serial('username()', async t => {
 	t.is(await require('./')(), 'unicorn');
 });
 
-test.serial('username.sync()', async t => {
+test.serial('username.sync()', t => {
 	process.env.LOGNAME = 'unicorn2';
-	t.is(await require('./').sync(), 'unicorn2');
+	t.is(require('./').sync(), 'unicorn2');
 });
