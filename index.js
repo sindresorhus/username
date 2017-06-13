@@ -21,14 +21,14 @@ function cleanWinCmd(x) {
 function noop() {}
 
 module.exports = mem(() => {
-	if (os.userInfo) {
-		return Promise.resolve(os.userInfo().username);
-	}
-
 	const envVar = getEnvVar();
 
 	if (envVar) {
 		return Promise.resolve(envVar);
+	}
+
+	if (os.userInfo) {
+		return Promise.resolve(os.userInfo().username);
 	}
 
 	if (process.platform === 'darwin' || process.platform === 'linux') {
@@ -41,14 +41,14 @@ module.exports = mem(() => {
 });
 
 module.exports.sync = mem(() => {
-	if (os.userInfo) {
-		return os.userInfo().username;
-	}
-
 	const envVar = getEnvVar();
 
 	if (envVar) {
 		return envVar;
+	}
+
+	if (os.userInfo) {
+		return os.userInfo().username;
 	}
 
 	try {
