@@ -9,9 +9,9 @@ process.env.LNAME = '';
 process.env.USERNAME = '';
 
 test('async', async t => {
-	t.true((await require('./')()).length > 1);
+	t.true((await require('.')()).length > 1);
 });
 
 test('sync', t => {
-	t.true(require('./').sync().length > 1);
+	t.true(require('.').sync().length > 1);
 });

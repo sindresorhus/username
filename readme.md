@@ -6,7 +6,7 @@
 ## Install
 
 ```
-$ npm install --save username
+$ npm install username
 ```
 
 
@@ -28,7 +28,7 @@ First tries to get the username from the `SUDO_USER` `LOGNAME` `USER` `LNAME` `U
 
 ### username()
 
-Returns a promise for the username.
+Returns a `Promise` for the username.
 
 ### username.sync()
 
@@ -43,4 +43,4 @@ Returns the username.
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)

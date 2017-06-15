@@ -8,10 +8,10 @@ process.env.USERNAME = '';
 
 test.serial('username()', async t => {
 	os.userInfo = () => ({username: 'unicorn'});
-	t.is(await require('./')(), 'unicorn');
+	t.is(await require('.')(), 'unicorn');
 });
 
 test.serial('username.sync()', t => {
 	os.userInfo = () => ({username: 'unicorn2'});
-	t.is(require('./').sync(), 'unicorn2');
+	t.is(require('.').sync(), 'unicorn2');
 });
