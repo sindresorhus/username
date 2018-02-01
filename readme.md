@@ -2,6 +2,8 @@
 
 > Get the username of the current user
 
+This module is meant for informational purposes, and not for secure identification.
+
 
 ## Install
 
