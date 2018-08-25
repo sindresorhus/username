@@ -4,7 +4,8 @@ const execa = require('execa');
 const mem = require('mem');
 
 function getEnvVar() {
-	const {env} = process;
+	// eslint-disable-next-line prefer-destructuring
+	const env = process.env;
 
 	return env.SUDO_USER ||
 		env.C9_USER /* Cloud9 */ ||
