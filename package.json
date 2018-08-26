@@ -1,43 +1,43 @@
 {
-  "name": "username",
-  "version": "3.0.0",
-  "description": "Get the username of the current user",
-  "license": "MIT",
-  "repository": "sindresorhus/username",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "engines": {
-    "node": ">=4"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "username",
-    "user",
-    "login",
-    "name",
-    "logname",
-    "lname",
-    "whoami",
-    "shell",
-    "env",
-    "var",
-    "environment",
-    "variable"
-  ],
-  "dependencies": {
-    "execa": "^0.7.0",
-    "mem": "^1.1.0"
-  },
-  "devDependencies": {
-    "ava": "*",
-    "xo": "*"
-  }
+	"name": "username",
+	"version": "3.0.0",
+	"description": "Get the username of the current user",
+	"license": "MIT",
+	"repository": "sindresorhus/username",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=6"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"username",
+		"user",
+		"login",
+		"name",
+		"logname",
+		"lname",
+		"whoami",
+		"shell",
+		"env",
+		"var",
+		"environment",
+		"variable"
+	],
+	"dependencies": {
+		"execa": "^0.11.0",
+		"mem": "^3.0.1"
+	},
+	"devDependencies": {
+		"ava": "*",
+		"xo": "*"
+	}
 }

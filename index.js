@@ -3,9 +3,8 @@ const os = require('os');
 const execa = require('execa');
 const mem = require('mem');
 
-function getEnvVar() {
-	// eslint-disable-next-line prefer-destructuring
-	const env = process.env;
+const getEnvVar = () => {
+	const {env} = process;
 
 	return env.SUDO_USER ||
 		env.C9_USER /* Cloud9 */ ||
@@ -13,13 +12,11 @@ function getEnvVar() {
 		env.USER ||
 		env.LNAME ||
 		env.USERNAME;
-}
+};
 
-function cleanWinCmd(x) {
-	return x.replace(/^.*\\/, '');
-}
+const cleanWinCmd = x => x.replace(/^.*\\/, '');
 
-function noop() {}
+const noop = () => {};
 
 module.exports = mem(() => {
 	const envVar = getEnvVar();
@@ -54,6 +51,7 @@ module.exports.sync = mem(() => {
 		if (process.platform === 'win32') {
 			return cleanWinCmd(execa.sync('whoami').stdout);
 		}
+
 		return execa.sync('id', ['-un']).stdout;
-	} catch (err) {}
+	} catch (_) {}
 });
