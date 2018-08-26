@@ -4,6 +4,7 @@ const execa = require('execa');
 const mem = require('mem');
 
 function getEnvVar() {
+	// eslint-disable-next-line prefer-destructuring
 	const env = process.env;
 
 	return env.SUDO_USER ||
@@ -31,13 +32,11 @@ module.exports = mem(() => {
 		return Promise.resolve(os.userInfo().username);
 	}
 
-	if (process.platform === 'darwin' || process.platform === 'linux') {
-		return execa('id', ['-un']).then(x => x.stdout).catch(noop);
-	} else if (process.platform === 'win32') {
+	if (process.platform === 'win32') {
 		return execa('whoami').then(x => cleanWinCmd(x.stdout)).catch(noop);
 	}
 
-	return Promise.resolve();
+	return execa('id', ['-un']).then(x => x.stdout).catch(noop);
 });
 
 module.exports.sync = mem(() => {
@@ -52,10 +51,9 @@ module.exports.sync = mem(() => {
 	}
 
 	try {
-		if (process.platform === 'darwin' || process.platform === 'linux') {
-			return execa.sync('id', ['-un']).stdout;
-		} else if (process.platform === 'win32') {
+		if (process.platform === 'win32') {
 			return cleanWinCmd(execa.sync('whoami').stdout);
 		}
+		return execa.sync('id', ['-un']).stdout;
 	} catch (err) {}
 });
