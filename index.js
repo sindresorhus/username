@@ -14,19 +14,25 @@ const getEnvVar = () => {
 		env.USERNAME;
 };
 
+const getUsernameFromOsUserInfo = () => {
+	try {
+		return os.userInfo().username;
+	} catch (_) {}
+};
+
 const cleanWinCmd = x => x.replace(/^.*\\/, '');
 
 const noop = () => {};
 
 module.exports = mem(() => {
 	const envVar = getEnvVar();
-
 	if (envVar) {
 		return Promise.resolve(envVar);
 	}
 
-	if (os.userInfo) {
-		return Promise.resolve(os.userInfo().username);
+	const userInfoUsername = getUsernameFromOsUserInfo();
+	if (userInfoUsername) {
+		return Promise.resolve(userInfoUsername);
 	}
 
 	if (process.platform === 'win32') {
@@ -38,13 +44,13 @@ module.exports = mem(() => {
 
 module.exports.sync = mem(() => {
 	const envVar = getEnvVar();
-
 	if (envVar) {
 		return envVar;
 	}
 
-	if (os.userInfo) {
-		return os.userInfo().username;
+	const userInfoUsername = getUsernameFromOsUserInfo();
+	if (userInfoUsername) {
+		return userInfoUsername;
 	}
 
 	try {
