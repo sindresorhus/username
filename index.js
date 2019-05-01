@@ -3,7 +3,7 @@ const os = require('os');
 const execa = require('execa');
 const mem = require('mem');
 
-const getEnvVariable = () => {
+const getEnvironmentVariable = () => {
 	const {env} = process;
 
 	return (
@@ -22,10 +22,10 @@ const getUsernameFromOsUserInfo = () => {
 	} catch (_) {}
 };
 
-const cleanWinCmd = x => x.replace(/^.*\\/, '');
+const cleanWindowsCommand = string => string.replace(/^.*\\/, '');
 
 module.exports = mem(async () => {
-	const envVariable = getEnvVariable();
+	const envVariable = getEnvironmentVariable();
 	if (envVariable) {
 		return envVariable;
 	}
@@ -37,17 +37,15 @@ module.exports = mem(async () => {
 
 	try {
 		if (process.platform === 'win32') {
-			const whoamiResult = await execa('whoami');
-			return cleanWinCmd(whoamiResult.stdout);
+			return cleanWindowsCommand(await execa.stdout('whoami'));
 		}
 
-		const idResult = await execa('id', ['-un']);
-		return idResult.stdout;
+		return await execa.stdout('id', ['-un']);
 	} catch (_) {}
 });
 
 module.exports.sync = mem(() => {
-	const envVariable = getEnvVariable();
+	const envVariable = getEnvironmentVariable();
 	if (envVariable) {
 		return envVariable;
 	}
@@ -59,7 +57,7 @@ module.exports.sync = mem(() => {
 
 	try {
 		if (process.platform === 'win32') {
-			return cleanWinCmd(execa.sync('whoami').stdout);
+			return cleanWindowsCommand(execa.sync('whoami').stdout);
 		}
 
 		return execa.sync('id', ['-un']).stdout;
