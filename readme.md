@@ -30,7 +30,7 @@ It first tries to get the username from the `SUDO_USER` `LOGNAME` `USER` `LNAME`
 
 ### username()
 
-Returns a `Promise` for the username.
+Returns a `Promise<string>` with the username.
 
 ### username.sync()
 

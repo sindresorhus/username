@@ -3,15 +3,17 @@ const os = require('os');
 const execa = require('execa');
 const mem = require('mem');
 
-const getEnvVar = () => {
+const getEnvVariable = () => {
 	const {env} = process;
 
-	return env.SUDO_USER ||
+	return (
+		env.SUDO_USER ||
 		env.C9_USER /* Cloud9 */ ||
 		env.LOGNAME ||
 		env.USER ||
 		env.LNAME ||
-		env.USERNAME;
+		env.USERNAME
+	);
 };
 
 const getUsernameFromOsUserInfo = () => {
@@ -22,30 +24,32 @@ const getUsernameFromOsUserInfo = () => {
 
 const cleanWinCmd = x => x.replace(/^.*\\/, '');
 
-const noop = () => {};
-
-module.exports = mem(() => {
-	const envVar = getEnvVar();
-	if (envVar) {
-		return Promise.resolve(envVar);
+module.exports = mem(async () => {
+	const envVariable = getEnvVariable();
+	if (envVariable) {
+		return envVariable;
 	}
 
 	const userInfoUsername = getUsernameFromOsUserInfo();
 	if (userInfoUsername) {
-		return Promise.resolve(userInfoUsername);
+		return userInfoUsername;
 	}
 
-	if (process.platform === 'win32') {
-		return execa('whoami').then(x => cleanWinCmd(x.stdout)).catch(noop);
-	}
+	try {
+		if (process.platform === 'win32') {
+			const whoamiResult = await execa('whoami');
+			return cleanWinCmd(whoamiResult.stdout);
+		}
 
-	return execa('id', ['-un']).then(x => x.stdout).catch(noop);
+		const idResult = await execa('id', ['-un']);
+		return idResult.stdout;
+	} catch (_) {}
 });
 
 module.exports.sync = mem(() => {
-	const envVar = getEnvVar();
-	if (envVar) {
-		return envVar;
+	const envVariable = getEnvVariable();
+	if (envVariable) {
+		return envVariable;
 	}
 
 	const userInfoUsername = getUsernameFromOsUserInfo();
