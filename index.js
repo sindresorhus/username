@@ -24,9 +24,7 @@ const getUsernameFromOsUserInfo = () => {
 
 const cleanWindowsCommand = string => string.replace(/^.*\\/, '');
 
-const makeUsernameFromId = userId => {
-	return 'no-username-' + userId;
-};
+const makeUsernameFromId = userId => `no-username-${userId}`;
 
 module.exports = mem(async () => {
 	const envVariable = getEnvironmentVariable();
@@ -40,17 +38,8 @@ module.exports = mem(async () => {
 	}
 
 	/**
-	 * First we try to get user <id> of the user
-	 * and then actual name for the user.
-	 *
-	 * We do this because in "docker run --user <uid>:<gid>" context
-	 * we don't have "username" available.
-	 *
-	 * Therefore we have a fallback to "makeUsernameFromId" for such scenario.
-	 *
-	 * Applies also to sync() methods below.
-	 */
-
+	First we try to get the ID of the user and then the actual username. We do this because in `docker run --user <uid>:<gid>` context, we don't have "username" available. Therefore, we have a fallback to `makeUsernameFromId` for such scenario. Applies also to the `sync()` method below.
+	*/
 	try {
 		if (process.platform === 'win32') {
 			return cleanWindowsCommand(await execa.stdout('whoami'));
