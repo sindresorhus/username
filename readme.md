@@ -1,9 +1,8 @@
-# username [![Build Status](https://travis-ci.org/sindresorhus/username.svg?branch=master)](https://travis-ci.org/sindresorhus/username)
+# username [![Build Status](https://travis-ci.com/sindresorhus/username.svg?branch=master)](https://travis-ci.com/github/sindresorhus/username)
 
 > Get the username of the current user
 
 This module is meant for informational purposes and not for secure identification.
-
 
 ## Install
 
@@ -11,6 +10,7 @@ This module is meant for informational purposes and not for secure identificatio
 $ npm install username
 ```
 
+*This package only works in Node.js, not in browsers.*
 
 ## Usage
 
@@ -22,7 +22,6 @@ const username = require('username');
 	//=> 'sindresorhus'
 })();
 ```
-
 
 ## API
 
@@ -36,13 +35,7 @@ Returns a `Promise<string>` with the username.
 
 Returns the username.
 
-
 ## Related
 
 - [username-cli](https://github.com/sindresorhus/username-cli) - CLI for this module
 - [fullname](https://github.com/sindresorhus/fullname) - Get the fullname of the current user
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)
