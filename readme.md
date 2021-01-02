@@ -1,4 +1,4 @@
-# username [![Build Status](https://travis-ci.com/sindresorhus/username.svg?branch=master)](https://travis-ci.com/github/sindresorhus/username)
+# username
 
 > Get the username of the current user
 
