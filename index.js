@@ -1,35 +1,35 @@
-'use strict';
-const os = require('os');
-const execa = require('execa');
-const mem = require('mem');
+import process from 'node:process';
+import os from 'node:os';
+import execa from 'execa';
+import mem from 'mem';
 
 const getEnvironmentVariable = () => {
 	const {env} = process;
 
 	return (
-		env.SUDO_USER ||
-		env.C9_USER /* Cloud9 */ ||
-		env.LOGNAME ||
-		env.USER ||
-		env.LNAME ||
-		env.USERNAME
+		env.SUDO_USER
+		|| env.C9_USER
+		|| /* Cloud9 */ env.LOGNAME
+		|| env.USER
+		|| env.LNAME
+		|| env.USERNAME
 	);
 };
 
 const getUsernameFromOsUserInfo = () => {
 	try {
 		return os.userInfo().username;
-	} catch (_) {}
+	} catch {}
 };
 
 const cleanWindowsCommand = string => string.replace(/^.*\\/, '');
 
 const makeUsernameFromId = userId => `no-username-${userId}`;
 
-module.exports = mem(async () => {
-	const envVariable = getEnvironmentVariable();
-	if (envVariable) {
-		return envVariable;
+export const username = mem(async () => {
+	const environmentVariable = getEnvironmentVariable();
+	if (environmentVariable) {
+		return environmentVariable;
 	}
 
 	const userInfoUsername = getUsernameFromOsUserInfo();
@@ -42,19 +42,21 @@ module.exports = mem(async () => {
 	*/
 	try {
 		if (process.platform === 'win32') {
-			return cleanWindowsCommand(await execa.stdout('whoami'));
+			const {stdout} = await execa('whoami');
+			return cleanWindowsCommand(stdout);
 		}
 
-		const userId = await execa.stdout('id', ['-u']);
+		const {stdout: userId} = await execa('id', ['-u']);
 		try {
-			return await execa.stdout('id', ['-un', userId]);
-		} catch (_) {}
+			const {stdout} = await execa('id', ['-un', userId]);
+			return stdout;
+		} catch {}
 
 		return makeUsernameFromId(userId);
-	} catch (_) {}
+	} catch {}
 });
 
-module.exports.sync = mem(() => {
+export const usernameSync = mem(() => {
 	const envVariable = getEnvironmentVariable();
 	if (envVariable) {
 		return envVariable;
@@ -70,11 +72,11 @@ module.exports.sync = mem(() => {
 			return cleanWindowsCommand(execa.sync('whoami').stdout);
 		}
 
-		const userId = execa.sync('id', ['-u']).stdout;
+		const {stdout: userId} = execa.sync('id', ['-u']);
 		try {
 			return execa.sync('id', ['-un', userId]).stdout;
-		} catch (_) {}
+		} catch {}
 
 		return makeUsernameFromId(userId);
-	} catch (_) {}
+	} catch {}
 });

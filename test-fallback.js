@@ -1,5 +1,7 @@
-import os from 'os';
+import process from 'node:process';
+import os from 'node:os';
 import test from 'ava';
+import {username, usernameSync} from './index.js';
 
 // Remove `os.userInfo()` and reset ENV flags to avoid them taking precedence
 delete os.userInfo;
@@ -9,9 +11,9 @@ process.env.LNAME = '';
 process.env.USERNAME = '';
 
 test('async', async t => {
-	t.true((await require('.')()).length > 1);
+	t.true((await username()).length > 1);
 });
 
 test('sync', t => {
-	t.true(require('.').sync().length > 1);
+	t.true(usernameSync().length > 1);
 });

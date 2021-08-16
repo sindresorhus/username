@@ -1,5 +1,5 @@
 import {expectType} from 'tsd';
-import username = require('.');
+import {username, usernameSync} from './index.js';
 
 expectType<Promise<string | undefined>>(username());
-expectType<string | undefined>(username.sync());
+expectType<string | undefined>(usernameSync());

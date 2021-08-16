@@ -15,12 +15,10 @@ $ npm install username
 ## Usage
 
 ```js
-const username = require('username');
+import {username} from 'username';
 
-(async () => {
-	console.log(await username());
-	//=> 'sindresorhus'
-})();
+console.log(await username());
+//=> 'sindresorhus'
 ```
 
 ## API
@@ -31,7 +29,7 @@ It first tries to get the username from the `SUDO_USER` `LOGNAME` `USER` `LNAME`
 
 Returns a `Promise<string>` with the username.
 
-### username.sync()
+### usernameSync()
 
 Returns the username.
 
