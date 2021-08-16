@@ -8,8 +8,8 @@ const getEnvironmentVariable = () => {
 
 	return (
 		env.SUDO_USER
-		|| env.C9_USER
-		|| /* Cloud9 */ env.LOGNAME
+		|| env.C9_USER // Cloud9
+		|| env.LOGNAME
 		|| env.USER
 		|| env.LNAME
 		|| env.USERNAME
