@@ -1,7 +1,7 @@
 import process from 'node:process';
 import os from 'node:os';
-import execa from 'execa';
-import mem from 'mem';
+import {execa, execaSync} from 'execa';
+import memoize from 'memoize';
 
 const getEnvironmentVariable = () => {
 	const {env} = process;
@@ -26,7 +26,7 @@ const cleanWindowsCommand = string => string.replace(/^.*\\/, '');
 
 const makeUsernameFromId = userId => `no-username-${userId}`;
 
-export const username = mem(async () => {
+export const username = memoize(async () => {
 	const environmentVariable = getEnvironmentVariable();
 	if (environmentVariable) {
 		return environmentVariable;
@@ -56,7 +56,7 @@ export const username = mem(async () => {
 	} catch {}
 });
 
-export const usernameSync = mem(() => {
+export const usernameSync = memoize(() => {
 	const envVariable = getEnvironmentVariable();
 	if (envVariable) {
 		return envVariable;
@@ -69,12 +69,12 @@ export const usernameSync = mem(() => {
 
 	try {
 		if (process.platform === 'win32') {
-			return cleanWindowsCommand(execa.sync('whoami').stdout);
+			return cleanWindowsCommand(execaSync('whoami').stdout);
 		}
 
-		const {stdout: userId} = execa.sync('id', ['-u']);
+		const {stdout: userId} = execaSync('id', ['-u']);
 		try {
-			return execa.sync('id', ['-un', userId]).stdout;
+			return execaSync('id', ['-un', userId]).stdout;
 		} catch {}
 
 		return makeUsernameFromId(userId);

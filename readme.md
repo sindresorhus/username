@@ -6,8 +6,8 @@ This module is meant for informational purposes and not for secure identificatio
 
 ## Install
 
-```
-$ npm install username
+```sh
+npm install username
 ```
 
 *This package only works in Node.js, not in browsers.*
@@ -25,11 +25,11 @@ console.log(await username());
 
 It first tries to get the username from the `SUDO_USER` `LOGNAME` `USER` `LNAME` `USERNAME` environment variables. Then falls back to `$ id -un` on macOS / Linux and `$ whoami` on Windows, in the rare case none of the environment variables are set. The result is cached.
 
-### username()
+### `username(): Promise<string | undefined>`
 
-Returns a `Promise<string>` with the username.
+Returns the username.
 
-### usernameSync()
+### `usernameSync(): string | undefined`
 
 Returns the username.
 

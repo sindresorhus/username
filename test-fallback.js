@@ -11,9 +11,10 @@ process.env.LNAME = '';
 process.env.USERNAME = '';
 
 test('async', async t => {
-	t.true((await username()).length > 1);
+	const username_ = await username();
+	t.true(username_?.length > 1);
 });
 
 test('sync', t => {
-	t.true(usernameSync().length > 1);
+	t.true(usernameSync()?.length > 1);
 });
